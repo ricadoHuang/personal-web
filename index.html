@@ -1,0 +1,820 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f3ed">
+  <meta name="description" content="黃暐哲的個人作品集，聚焦人工智慧、VR 互動開發與以人為本的數位解決方案。">
+  <title>黃暐哲｜個人作品集</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f4f3ed;
+      --surface: #fffefa;
+      --ink: #17231f;
+      --muted: #66716a;
+      --line: #d9ddd4;
+      --green: #2d654b;
+      --lime: #d1ef79;
+      --forest: #1c2924;
+      --serif: "Noto Serif TC", "Iowan Old Style", "Songti TC", Georgia, serif;
+      --sans: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      --content: 1160px;
+      --radius: 18px;
+      --shadow: 0 1px 2px rgb(23 35 31 / 4%), 0 12px 32px -12px rgb(23 35 31 / 14%);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(900px 520px at 88% -8%, rgb(209 239 121 / 32%), transparent 70%),
+        radial-gradient(700px 460px at -10% 12%, rgb(45 101 75 / 9%), transparent 70%),
+        var(--paper);
+      background-repeat: no-repeat;
+      font-family: var(--sans);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::selection { background: var(--lime); color: var(--ink); }
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible {
+      outline: 3px solid var(--green);
+      outline-offset: 4px;
+      border-radius: 6px;
+    }
+    .wrap { width: min(var(--content), calc(100% - 56px)); margin-inline: auto; }
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin: 0 0 18px;
+      color: var(--green);
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { width: 28px; height: 2px; border-radius: 2px; background: currentColor; content: ""; }
+
+    /* ---------- Header ---------- */
+    .site-header {
+      position: sticky;
+      z-index: 5;
+      top: 0;
+      border-bottom: 1px solid transparent;
+      background: rgb(244 243 237 / 78%);
+      backdrop-filter: blur(14px) saturate(1.4);
+      transition: border-color .25s ease, box-shadow .25s ease, background .25s ease;
+    }
+    .site-header.is-scrolled {
+      border-bottom-color: rgb(23 35 31 / 8%);
+      background: rgb(244 243 237 / 92%);
+      box-shadow: 0 8px 24px -18px rgb(23 35 31 / 35%);
+    }
+    .nav {
+      display: flex;
+      min-height: 72px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-decoration: none;
+    }
+    .brand::before {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 4px var(--lime);
+      content: "";
+    }
+    .nav-links { display: flex; align-items: center; gap: 30px; }
+    .nav-links a {
+      position: relative;
+      color: #44504a;
+      font-size: .85rem;
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+    .nav-links a:not(.nav-cta)::after {
+      position: absolute;
+      right: 0;
+      bottom: -4px;
+      left: 0;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--green);
+      content: "";
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .25s ease;
+    }
+    .nav-links a:hover, .nav-links a.is-active { color: var(--green); }
+    .nav-links a:hover::after, .nav-links a.is-active::after { transform: scaleX(1); }
+    .nav-links .nav-cta {
+      padding: 9px 18px;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      color: var(--ink);
+      transition: background .2s ease, color .2s ease;
+    }
+    .nav-links .nav-cta:hover { background: var(--ink); color: #fff; }
+    .menu-toggle {
+      display: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 15px;
+      color: var(--ink);
+      background: var(--surface);
+      font: inherit;
+      font-size: .85rem;
+      cursor: pointer;
+    }
+
+    /* ---------- Hero ---------- */
+    .hero { padding: 96px 0 104px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr);
+      align-items: center;
+      gap: clamp(48px, 9vw, 126px);
+    }
+    .hero-grid > * { animation: rise .9s cubic-bezier(.2, .7, .2, 1) both; }
+    .hero-grid > :last-child { animation-delay: .15s; }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: none; }
+    }
+    .hero h1 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(3.7rem, 8vw, 6.6rem);
+      font-weight: 600;
+      letter-spacing: .06em;
+      line-height: 1.08;
+    }
+    .hero h1 span {
+      display: block;
+      width: fit-content;
+      margin-top: 20px;
+      padding: 0 4px;
+      color: var(--green);
+      font-size: .42em;
+      font-weight: 600;
+      letter-spacing: .1em;
+      background: linear-gradient(transparent 60%, rgb(209 239 121 / 85%) 60%, rgb(209 239 121 / 85%) 92%, transparent 92%);
+    }
+    .hero-lead {
+      max-width: 580px;
+      margin: 28px 0 0;
+      color: #515d56;
+      font-size: clamp(1rem, 1.7vw, 1.12rem);
+      line-height: 2;
+    }
+    .hero-lead strong { color: var(--ink); font-weight: 700; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+    .button {
+      display: inline-flex;
+      min-height: 50px;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 24px;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      background: var(--ink);
+      color: white;
+      font-size: .9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: transform .2s ease, background .2s ease, box-shadow .2s ease, color .2s ease;
+    }
+    .button:hover { transform: translateY(-2px); background: var(--green); box-shadow: 0 12px 24px -12px rgb(45 101 75 / 70%); }
+    .button.secondary { background: transparent; color: var(--ink); }
+    .button.secondary:hover { background: var(--surface); box-shadow: var(--shadow); }
+
+    .portrait-wrap { position: relative; width: min(100%, 320px); justify-self: end; }
+    .portrait-frame { position: relative; isolation: isolate; }
+    .portrait-frame::before {
+      position: absolute;
+      z-index: -1;
+      inset: 20px -20px -20px 20px;
+      border-radius: 200px 200px 22px 22px;
+      background: var(--lime);
+      content: "";
+    }
+    .portrait-frame::after {
+      position: absolute;
+      z-index: -1;
+      inset: -14px 14px 14px -14px;
+      border: 1px solid rgb(23 35 31 / 22%);
+      border-radius: 200px 200px 22px 22px;
+      content: "";
+    }
+    .portrait {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: .79;
+      border-radius: 200px 200px 22px 22px;
+      background: #e7e9e3;
+      object-fit: cover;
+      object-position: 50% 27%;
+      box-shadow: 0 30px 60px -30px rgb(23 35 31 / 45%);
+    }
+    .portrait-badge {
+      position: absolute;
+      bottom: 36px;
+      left: -36px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: var(--surface);
+      box-shadow: 0 16px 36px -14px rgb(23 35 31 / 35%);
+      font-size: .8rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .portrait-badge .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #3a9a63;
+      box-shadow: 0 0 0 4px rgb(58 154 99 / 20%);
+    }
+
+    /* ---------- Proof strip ---------- */
+    .proof-strip {
+      padding: 28px 0;
+      border-block: 1px solid var(--line);
+      background: rgb(255 254 250 / 65%);
+    }
+    .proof-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .proof-item { padding: 4px 24px; border-left: 1px solid var(--line); }
+    .proof-item:first-child { padding-left: 0; border-left: 0; }
+    .proof-item strong { display: block; color: var(--green); font-family: var(--serif); font-size: 1.45rem; font-weight: 700; line-height: 1.5; }
+    .proof-item span { color: var(--muted); font-size: .8rem; }
+
+    /* ---------- Sections ---------- */
+    .section { padding: 112px 0; }
+    .section-heading {
+      display: grid;
+      grid-template-columns: 1fr minmax(240px, 440px);
+      align-items: end;
+      gap: 36px;
+      margin-bottom: 48px;
+    }
+    .section-heading h2 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 4.6vw, 3.6rem);
+      font-weight: 600;
+      letter-spacing: .03em;
+      line-height: 1.3;
+    }
+    .section-heading > p { margin: 0; color: var(--muted); font-size: .95rem; }
+
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .about-copy { color: #4e5a53; }
+    .about-copy p { margin: 0 0 18px; }
+    .about-copy p:first-child { color: var(--ink); font-size: 1.1rem; line-height: 1.9; }
+    .about-copy strong { color: var(--green); }
+    .principles { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; counter-reset: principle; }
+    .principle {
+      position: relative;
+      min-height: 150px;
+      padding: 24px 22px 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      counter-increment: principle;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .principle::after {
+      position: absolute;
+      top: 20px;
+      right: 22px;
+      color: #b5beb4;
+      font-family: var(--serif);
+      font-size: .85rem;
+      content: "0" counter(principle);
+    }
+    .principle:hover { transform: translateY(-4px); border-color: rgb(45 101 75 / 35%); box-shadow: var(--shadow); }
+    .principle b { display: block; margin-bottom: 10px; color: var(--green); font-family: var(--serif); font-size: 1.2rem; font-weight: 700; }
+    .principle span { color: var(--muted); font-size: .86rem; }
+
+    /* ---------- Projects ---------- */
+    .dark-section {
+      background:
+        radial-gradient(800px 420px at 92% 0%, rgb(209 239 121 / 11%), transparent 70%),
+        radial-gradient(600px 400px at 0% 100%, rgb(45 101 75 / 35%), transparent 70%),
+        var(--forest);
+      color: #f6f5ef;
+    }
+    .dark-section .eyebrow { color: var(--lime); }
+    .dark-section .section-heading > p { color: #bbc5be; }
+    .project-list { display: grid; gap: 16px; }
+    .project-card {
+      display: grid;
+      grid-template-columns: 84px minmax(0, 1fr) 44px;
+      gap: 24px;
+      padding: 32px 32px;
+      border: 1px solid rgb(255 255 255 / 12%);
+      border-radius: var(--radius);
+      background: rgb(255 255 255 / 3%);
+      transition: border-color .25s ease, background .25s ease, transform .25s ease;
+    }
+    .project-card:hover { transform: translateY(-3px); border-color: rgb(209 239 121 / 50%); background: rgb(255 255 255 / 6%); }
+    .project-number { color: var(--lime); font-family: var(--serif); font-size: 2.1rem; font-weight: 600; line-height: 1.2; opacity: .9; }
+    .project-main h3 { margin: 0; font-family: var(--serif); font-size: clamp(1.35rem, 2.6vw, 1.85rem); font-weight: 600; line-height: 1.4; }
+    .project-kicker { margin: 6px 0 14px; color: var(--lime); font-size: .8rem; letter-spacing: .04em; opacity: .85; }
+    .project-main > p:last-of-type { max-width: 760px; margin: 0; color: #d0d6d1; font-size: .92rem; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .project-tags span { padding: 4px 12px; border-radius: 999px; background: rgb(255 255 255 / 8%); color: #e2e8e1; font-size: .74rem; }
+    .project-mark {
+      display: grid;
+      width: 44px;
+      height: 44px;
+      align-self: start;
+      place-items: center;
+      border: 1px solid rgb(255 255 255 / 20%);
+      border-radius: 50%;
+      color: var(--lime);
+      font-size: 1rem;
+      transition: background .25s ease, color .25s ease, border-color .25s ease, transform .25s ease;
+    }
+    .project-card:hover .project-mark { border-color: var(--lime); background: var(--lime); color: var(--forest); transform: rotate(45deg); }
+    .project-note {
+      display: grid;
+      grid-template-columns: .7fr 1.3fr;
+      gap: 36px;
+      margin-top: 48px;
+      padding: 30px 34px;
+      border-left: 3px solid var(--lime);
+      border-radius: 4px var(--radius) var(--radius) 4px;
+      background: rgb(209 239 121 / 7%);
+    }
+    .project-note h3 { margin: 0; color: var(--lime); font-family: var(--serif); font-size: 1.35rem; font-weight: 600; }
+    .project-note p { margin: 0; color: #d0d6d1; font-size: .9rem; }
+
+    /* ---------- Research ---------- */
+    .research-layout { display: grid; grid-template-columns: .72fr 1.28fr; gap: 72px; }
+    .research-label {
+      position: sticky;
+      top: 112px;
+      align-self: start;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+    .research-label h3 { margin: 0 0 10px; font-family: var(--serif); font-size: 1.65rem; font-weight: 600; }
+    .research-label p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .research-label .research-advisor {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px dashed var(--line);
+      color: var(--green);
+      font-weight: 500;
+    }
+    .research-title { margin: 0 0 24px; font-family: var(--serif); font-size: 1.2rem; font-weight: 600; line-height: 1.8; }
+    .research-body { color: #556159; }
+    .research-body p { margin: 0 0 18px; }
+    .research-highlights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 30px; }
+    .research-stat {
+      position: relative;
+      padding: 20px 20px 18px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface);
+      overflow: hidden;
+    }
+    .research-stat::before { position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, var(--green), var(--lime)); content: ""; }
+    .research-stat strong { display: block; font-family: var(--serif); font-size: 1.15rem; font-weight: 700; }
+    .research-stat span { color: var(--muted); font-size: .78rem; }
+
+    /* ---------- Recognition ---------- */
+    .recognition { background: #e9ebe2; }
+    .recognition-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+    .timeline { margin: 0; padding: 0; list-style: none; }
+    .timeline li {
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      align-items: start;
+      gap: 18px;
+      padding: 18px 0;
+      border-bottom: 1px solid #cbd1c7;
+    }
+    .timeline li:first-child { padding-top: 0; }
+    .timeline .year {
+      display: inline-block;
+      justify-self: start;
+      padding: 1px 10px;
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--green);
+      font-family: var(--serif);
+      font-size: .85rem;
+      font-weight: 600;
+    }
+    .timeline strong { display: block; font-size: .95rem; font-weight: 700; }
+    .timeline div > span { display: block; color: var(--muted); font-size: .8rem; }
+    .skills-panel { padding: 32px; border-radius: 22px; background: var(--surface); box-shadow: var(--shadow); }
+    .skill-group + .skill-group { margin-top: 24px; padding-top: 22px; border-top: 1px solid #eceee7; }
+    .skill-group h3 { margin: 0 0 12px; color: var(--green); font-size: .82rem; font-weight: 700; letter-spacing: .08em; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-tags span {
+      padding: 6px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #f6f6f0;
+      color: #3d4a43;
+      font-size: .78rem;
+      transition: background .2s ease, border-color .2s ease;
+    }
+    .skill-tags span:hover { border-color: #b8d65e; background: var(--lime); }
+    .skills-note { margin: 14px 4px 0; color: var(--muted); font-size: .77rem; }
+
+    /* ---------- Closing & footer ---------- */
+    .closing { padding: 96px 0; }
+    .closing-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 36px;
+      padding: clamp(36px, 6vw, 64px);
+      border-radius: 28px;
+      background:
+        radial-gradient(500px 300px at 100% 0%, rgb(209 239 121 / 18%), transparent 70%),
+        var(--forest);
+      color: #f6f5ef;
+    }
+    .closing h2 { max-width: 690px; margin: 0; font-family: var(--serif); font-size: clamp(1.7rem, 3.6vw, 2.7rem); font-weight: 600; line-height: 1.5; }
+    .closing h2 span { color: var(--lime); }
+    .closing .button { flex-shrink: 0; border-color: var(--lime); background: var(--lime); color: var(--forest); }
+    .closing .button:hover { background: #e0f69e; box-shadow: 0 12px 24px -12px rgb(209 239 121 / 60%); }
+    .site-footer { padding: 22px 0 28px; border-top: 1px solid var(--line); color: var(--muted); font-size: .78rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+
+    /* ---------- Scroll reveal ---------- */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s cubic-bezier(.2, .7, .2, 1); }
+    .reveal.is-visible { opacity: 1; transform: none; }
+    .principle.reveal.is-visible:hover { transform: translateY(-4px); }
+    .project-card.reveal.is-visible:hover { transform: translateY(-3px); }
+
+    @media (max-width: 760px) {
+      .wrap { width: min(var(--content), calc(100% - 36px)); }
+      .nav { min-height: 64px; }
+      .menu-toggle { display: inline-flex; }
+      .nav-links {
+        position: absolute;
+        top: 63px;
+        right: 0;
+        left: 0;
+        display: none;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px 18px 18px;
+        border-bottom: 1px solid var(--line);
+        background: var(--paper);
+        box-shadow: 0 18px 30px -20px rgb(23 35 31 / 35%);
+      }
+      .nav-links.is-open { display: flex; flex-direction: column; }
+      .nav-links a { padding: 11px 0; }
+      .nav-links a:not(.nav-cta)::after { display: none; }
+      .nav-links .nav-cta { margin-top: 6px; padding: 9px 13px; text-align: center; }
+      .hero { padding: 56px 0 76px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 64px; }
+      .hero h1 { font-size: clamp(3.4rem, 16vw, 5.5rem); }
+      .hero h1 span { font-size: .4em; }
+      .portrait-wrap { width: min(70%, 260px); justify-self: center; }
+      .portrait-badge { left: -14px; bottom: 24px; font-size: .74rem; padding: 8px 14px; }
+      .proof-grid { grid-template-columns: 1fr 1fr; row-gap: 18px; }
+      .proof-item:nth-child(3) { padding-left: 0; border-left: 0; }
+      .section { padding: 80px 0; }
+      .section-heading { grid-template-columns: 1fr; gap: 13px; margin-bottom: 32px; }
+      .about-grid, .recognition-grid, .research-layout { grid-template-columns: 1fr; gap: 32px; }
+      .research-label { position: static; }
+      .project-card { grid-template-columns: 1fr 36px; gap: 14px; padding: 24px 20px; }
+      .project-number { grid-column: 1; font-size: 1.5rem; }
+      .project-main { grid-column: 1 / -1; grid-row: 2; }
+      .project-mark { grid-column: 2; grid-row: 1; width: 36px; height: 36px; font-size: .9rem; }
+      .project-note { grid-template-columns: 1fr; gap: 12px; padding: 24px; }
+      .research-highlights { grid-template-columns: 1fr; }
+      .skills-panel { padding: 24px; }
+      .closing { padding: 64px 0; }
+      .closing-inner { align-items: flex-start; flex-direction: column; border-radius: 22px; }
+    }
+    @media (max-width: 420px) {
+      .principles { grid-template-columns: 1fr; }
+      .proof-item { padding-inline: 13px; }
+      .proof-item strong { font-size: 1.25rem; }
+      .footer-inner { flex-direction: column; gap: 4px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+  <header class="site-header">
+    <nav class="nav wrap" aria-label="主要導覽">
+      <a class="brand" href="#top" aria-label="黃暐哲，回到首頁">WEI-JHE HUANG</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links">選單</button>
+      <div class="nav-links" id="nav-links">
+        <a href="#about">關於我</a>
+        <a href="#projects">專案作品</a>
+        <a href="#research">研究經歷</a>
+        <a href="#recognition">學習與技能</a>
+        <a class="nav-cta" href="#projects">探索作品　↘</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">Information Management · Portfolio</p>
+          <h1 id="hero-title">黃暐哲<span>把想法，做成解方。</span></h1>
+          <p class="hero-lead">國立臺灣科技大學資訊管理系碩士生，方郁惠教授電子商務與 AI 研究實驗室。<strong>以資訊技術為工具、以真實需求為起點</strong>，投入人工智慧、VR 互動體驗與數位服務設計。</p>
+          <div class="hero-actions">
+            <a class="button" href="#projects">查看專案 <span aria-hidden="true">↘</span></a>
+            <a class="button secondary" href="#about">認識我</a>
+          </div>
+        </div>
+        <div class="portrait-wrap">
+          <div class="portrait-frame">
+            <img class="portrait" src="assets/profile.jpg" alt="黃暐哲個人形象照" width="1773" height="2220">
+          </div>
+          <p class="portrait-badge"><span class="dot" aria-hidden="true"></span>台科資管 · 碩士生</p>
+        </div>
+      </div>
+    </section>
+
+    <aside class="proof-strip" aria-label="個人亮點">
+      <div class="proof-grid wrap">
+        <div class="proof-item"><strong>系排第四</strong><span>歷年學業表現</span></div>
+        <div class="proof-item"><strong>台科資管</strong><span>電子商務與 AI 研究實驗室</span></div>
+        <div class="proof-item"><strong>AI × GNN</strong><span>國科會研究計畫</span></div>
+        <div class="proof-item"><strong>VR × LLM</strong><span>多人連線畢業專題</span></div>
+      </div>
+    </aside>
+
+    <section class="section wrap" id="about">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">About</p>
+          <h2>跨越技術與使用者，<br>找到問題的解法。</h2>
+        </div>
+        <p>從模型實驗、VR 遊戲到商家數位轉型，我喜歡把陌生問題拆解成可驗證的步驟，並和團隊一起做出真正能使用的成果。</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-copy">
+          <p>我是<strong>黃暐哲</strong>，畢業於國立東華大學資訊管理學系（歷年系排名第四），現就讀國立臺灣科技大學資訊管理系碩士班，於方郁惠教授的電子商務與 AI 研究實驗室，關注電子商務、AI 行為研究與社群媒體等議題。</p>
+          <p>在專題與研究中，我累積了系統分析、程式開發、資料分析與跨領域溝通經驗。面對技術瓶頸，我習慣先釐清需求，再透過文件研讀、原型測試與團隊討論，逐步收斂出可行方案。</p>
+          <p>我相信好的資訊系統不只要能運作，也要能讓人理解、願意使用，並對實際問題帶來改變。</p>
+        </div>
+        <div class="principles" aria-label="工作特質">
+          <div class="principle"><b>快速學習</b><span>快速掌握跨領域架構，閱讀論文與官方文件並落實於實作。</span></div>
+          <div class="principle"><b>實證思考</b><span>透過參數調整、消融實驗與資料分析，檢驗想法是否有效。</span></div>
+          <div class="principle"><b>解決問題</b><span>遇到技術限制，重新評估架構並以測試找到可靠的替代方案。</span></div>
+          <div class="principle"><b>跨域協作</b><span>轉譯技術與商業需求，協助團隊在共同目標上做出決策。</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dark-section" id="projects">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Selected Work</p>
+            <h2>讓技術走進真實情境。</h2>
+          </div>
+          <p>從資安教育、使用者研究到企業系統與商家服務，透過不同專案累積完整的分析、設計與實作經驗。</p>
+        </div>
+
+        <div class="project-list">
+          <article class="project-card">
+            <div class="project-number">01</div>
+            <div class="project-main">
+              <h3>零痕計畫・知識防線</h3>
+              <p class="project-kicker">畢業專題 · VR 資安教育遊戲</p>
+              <p>將 DDoS 攻擊、木馬病毒與釣魚網站化為可互動的 VR 關卡，讓玩家透過雙人合作，在遊戲中練習辨識威脅與建立資安防禦觀念。負責專案規劃、系統分析、關卡設計、Unity C# 互動開發與 AI 模型整合。</p>
+              <div class="project-tags"><span>Unity / C#</span><span>VR / XR Interaction Toolkit</span><span>NGO 多人連線</span><span>Ollama / Flask</span></div>
+            </div>
+            <span class="project-mark" aria-hidden="true">↗</span>
+          </article>
+
+          <article class="project-card">
+            <div class="project-number">02</div>
+            <div class="project-main">
+              <h3>假新聞的情緒喚醒與傳播行為分析</h3>
+              <p class="project-kicker">人機互動研究 · 問卷設計與統計分析</p>
+              <p>設計呈現不同情緒效價與喚醒度的新聞介面原型，蒐集 102 份回覆、取得 100 份有效樣本。分析指出高情緒喚醒標題與介面會增加焦慮感，並提升未經查證的分享意願；據此提出情緒標示與緩衝查證機制等介面建議。</p>
+              <div class="project-tags"><span>HCI</span><span>問卷研究</span><span>統計分析</span><span>UI 設計原則</span></div>
+            </div>
+            <span class="project-mark" aria-hidden="true">↗</span>
+          </article>
+
+          <article class="project-card">
+            <div class="project-number">03</div>
+            <div class="project-main">
+              <h3>企業員工打卡管理系統</h3>
+              <p class="project-kicker">系統開發 · WinForms / MS SQL Server</p>
+              <p>打造區分一般員工、管理者與總管理者的出勤管理應用程式。規劃 EmployeeInfo、LoginHistory 等關聯資料表，實作加鹽密碼雜湊、重複簽到限制、輸入格式檢查與例外處理，提升資料管理與系統安全性。</p>
+              <div class="project-tags"><span>C# WinForms</span><span>MS SQL Server</span><span>資料庫正規化</span><span>Password Hashing</span></div>
+            </div>
+            <span class="project-mark" aria-hidden="true">↗</span>
+          </article>
+
+          <article class="project-card">
+            <div class="project-number">04</div>
+            <div class="project-main">
+              <h3>少爺丼飯數位轉型合作</h3>
+              <p class="project-kicker">跨領域產學合作 · 系統分析與數位行銷</p>
+              <p>與企管團隊及商家合作，分析尖峰人力與點餐痛點，規劃 QR Code 點餐流程原型與後台訂單管理，並透過 Instagram 洞察報告調整社群策略。負責跨團隊溝通、需求轉譯與硬體限制下的可行性評估。</p>
+              <div class="project-tags"><span>系統分析與設計</span><span>UI/UX</span><span>數位行銷</span><span>跨領域協作</span></div>
+            </div>
+            <span class="project-mark" aria-hidden="true">↗</span>
+          </article>
+        </div>
+
+        <div class="project-note">
+          <h3>從限制中找出可行路徑</h3>
+          <p>畢業專題初期使用 Photon Fusion 時遇到 VR 模型同步瓶頸。我主動研究替代架構，與團隊比較並測試 Unity Netcode for GameObjects（NGO），透過固定進度討論及反覆驗證，最終完成穩定的雙人連線同步。這段經驗讓我更熟悉如何在資源有限時自主研究、溝通取捨並解決技術難題。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="research">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Research Experience</p>
+          <h2>把研究落實為可驗證的成果。</h2>
+        </div>
+        <p>在人工智慧與大數據實驗室參與國科會計畫，從論文研讀、程式重構到模型實驗，累積完整的研究執行經驗。</p>
+      </div>
+      <div class="research-layout">
+        <div class="research-label">
+          <h3>研究助理</h3>
+          <p>國立東華大學<br>人工智慧與大數據實驗室</p>
+          <p class="research-advisor">指導教授：劉英和 教授</p>
+        </div>
+        <div class="research-body">
+          <h3 class="research-title">以「致股東報告書」與公司財務指標結合圖神經網路，以預測公司未來下市與否之研究</h3>
+          <p>參與國科會研究計畫期間，我在短時間內掌握跨領域專案架構，針對既有程式碼進行結構重構與效能優化，並負責深度學習模型訓練及參數調整，以提升模型穩定度與預測表現。</p>
+          <p>我也規劃並執行消融實驗，檢驗文字特徵、財務指標與圖神經網路（GNN）對下市預測的實質影響；同時研讀 GNN、NLP 與其他機器學習相關論文，將異質資料融合的方法落實於實際問題，並如期交付研究成果。</p>
+          <div class="research-highlights">
+            <div class="research-stat"><strong>程式重構</strong><span>改善結構與執行效率</span></div>
+            <div class="research-stat"><strong>模型實驗</strong><span>訓練、調參與消融驗證</span></div>
+            <div class="research-stat"><strong>異質資料</strong><span>文字、財務指標與 GNN</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section recognition" id="recognition">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Highlights & Toolkit</p>
+            <h2>持續累積，穩定前進。</h2>
+          </div>
+          <p>學習成果、競賽經驗與多元工具能力，構成我面對新挑戰的基礎。</p>
+        </div>
+        <div class="recognition-grid">
+          <div>
+            <ol class="timeline">
+              <li><span class="year">學業</span><div><strong>歷年系排名第四</strong><span>國立東華大學資訊管理學系</span></div></li>
+              <li><span class="year">升學</span><div><strong>國立臺灣科技大學資訊管理系碩士班</strong><span>方郁惠教授 · 電子商務與 AI 研究實驗室</span></div></li>
+              <li><span class="year">113-1</span><div><strong>書卷獎 第一名</strong><span>國立東華大學</span></div></li>
+              <li><span class="year">112-2</span><div><strong>書卷獎 第二名</strong><span>國立東華大學</span></div></li>
+              <li><span class="year">2023</span><div><strong>校慶盃壘球賽 季軍</strong><span>團隊競賽與合作經驗</span></div></li>
+              <li><span class="year">2022</span><div><strong>縱谷杯軟式棒球聯賽 第二名</strong><span>團隊競賽與合作經驗</span></div></li>
+            </ol>
+          </div>
+          <div>
+            <div class="skills-panel">
+              <div class="skill-group">
+                <h3>程式語言</h3>
+                <div class="skill-tags"><span>C#</span><span>PHP</span><span>SQL</span><span>Python</span></div>
+              </div>
+              <div class="skill-group">
+                <h3>開發工具</h3>
+                <div class="skill-tags"><span>Unity</span><span>XR Interaction Toolkit</span><span>Visual Studio</span><span>Blender</span><span>MySQL</span><span>XAMPP</span></div>
+              </div>
+              <div class="skill-group">
+                <h3>專業技術</h3>
+                <div class="skill-tags"><span>VR Development</span><span>Unity NGO</span><span>LLM Integration</span><span>Ollama / Flask</span><span>資料庫管理</span><span>系統分析</span></div>
+              </div>
+              <div class="skill-group">
+                <h3>語言檢定</h3>
+                <div class="skill-tags"><span>TOEIC 聽力與閱讀 605 分</span></div>
+              </div>
+            </div>
+            <p class="skills-note">獲獎紀錄與成績、書卷獎、社團競賽等證明文件可另行提供。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing wrap" aria-label="結語">
+      <div class="closing-inner">
+        <h2>讓好奇心持續前進，<br><span>讓每個解方都更貼近人。</span></h2>
+        <a class="button secondary" href="#top">回到頁首 <span aria-hidden="true">↑</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner wrap">
+      <span>黃暐哲 · 個人作品集</span>
+      <span>國立臺灣科技大學資訊管理系</span>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.querySelector(".menu-toggle");
+    const navigation = document.querySelector(".nav-links");
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", String(!isOpen));
+      navigation.classList.toggle("is-open", !isOpen);
+    });
+
+    navigation.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        menuButton.setAttribute("aria-expanded", "false");
+        navigation.classList.remove("is-open");
+      }
+    });
+
+    const header = document.querySelector(".site-header");
+    const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 8);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    if ("IntersectionObserver" in window) {
+      const navLinks = [...navigation.querySelectorAll("a:not(.nav-cta)")];
+      const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          navLinks.forEach((link) => {
+            link.classList.toggle("is-active", link.getAttribute("href") === `#${entry.target.id}`);
+          });
+        });
+      }, { rootMargin: "-45% 0px -50% 0px" });
+      navLinks.forEach((link) => {
+        const section = document.querySelector(link.getAttribute("href"));
+        if (section) sectionObserver.observe(section);
+      });
+
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        const revealTargets = document.querySelectorAll(
+          ".proof-item, .section-heading, .about-copy, .principle, .project-card, .project-note, " +
+          ".research-label, .research-body, .timeline li, .skills-panel, .closing-inner"
+        );
+        const revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+            setTimeout(() => { entry.target.style.transitionDelay = ""; }, 1200);
+          });
+        }, { rootMargin: "0px 0px -8% 0px" });
+        revealTargets.forEach((element) => {
+          const siblings = [...element.parentElement.children].filter((child) => child.matches(element.tagName));
+          element.style.transitionDelay = `${Math.min(siblings.indexOf(element), 5) * 70}ms`;
+          element.classList.add("reveal");
+          revealObserver.observe(element);
+        });
+      }
+    }
+  </script>
+</body>
+</html>
